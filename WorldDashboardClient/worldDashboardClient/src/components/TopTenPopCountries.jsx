@@ -17,7 +17,7 @@ const TopTenPopCountries = () => {
     return (
     <div className="table-container">
 
-        <h2>🌍 Top 10 Populated Countries</h2>
+        <h2> Top 10 Populated Countries</h2>
 
         <div className="table-wrapper">
 
