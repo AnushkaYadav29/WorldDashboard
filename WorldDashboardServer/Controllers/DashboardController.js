@@ -161,45 +161,52 @@ function getPopulationLessThanSpecificVal(req,res){
 }
 
 function getPopulationByCountries(req,res){
-    const country=req.query.country;
 
-    
+    const q = `
+        SELECT Name, Population
+        FROM country
+        ORDER BY Population DESC
+        LIMIT 10
+    `;
 
-    const q=`
-    SELECT Name,Population
-    FROM country
-    WHERE Name=?`;
+    connection.query(q,(err,result)=>{
 
-    connection.query(q,[country],(err,result)=>{
         if(err){
-            return res.status(500).send({msg:err.message});
+            return res.status(500).send({
+                msg:err.message
+            });
         }
 
         res.status(200).send({
-            country:result,
-            success:true
+            country: result,
+            success: true
         });
     });
 }
 
 function getLanguageSpokenInCountry(req,res){
-    const country=req.query.country;
 
-    const q=`
-    SELECT cl.Language
-    FROM countrylanguage cl
-    JOIN country c
-    ON c.Code=cl.CountryCode
-    WHERE c.Name=?`;
+    const country = req.params.country;
+
+    const q = `
+        SELECT cl.Language, cl.Percentage
+        FROM countrylanguage cl
+        JOIN country c
+        ON c.Code = cl.CountryCode
+        WHERE c.Name = ?
+    `;
 
     connection.query(q,[country],(err,result)=>{
+
         if(err){
-            return res.status(500).send({msg:err.message});
+            return res.status(500).send({
+                msg: err.message
+            });
         }
 
         res.status(200).send({
-            languages:result,
-            success:true
+            languages: result,
+            success: true
         });
     });
 }
@@ -320,21 +327,25 @@ function getCountriesWIthLowLifeExpect(req,res){
 }
 
 function getSpecificCityinfo(req,res){
-    const city=req.query.city;
 
-    const q=`
+    const city = req.params.city;   // fixed
+
+    const q = `
     SELECT *
     FROM city
-    WHERE Name=?`;
+    WHERE Name = ?`;
 
     connection.query(q,[city],(err,result)=>{
+
         if(err){
-            return res.status(500).send({msg:err.message});
+            return res.status(500).send({
+                msg: err.message
+            });
         }
 
         res.status(200).send({
-            cityInfo:result,
-            success:true
+            cityInfo: result[0],   // fixed
+            success: true
         });
     });
 }

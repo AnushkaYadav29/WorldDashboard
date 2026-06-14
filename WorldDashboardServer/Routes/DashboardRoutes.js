@@ -20,7 +20,10 @@ router.post('/getPopulationLessThanSpecificVal',DashboardController.getPopulatio
 
 router.get('/getPopulationByCountries',DashboardController.getPopulationByCountries)
 
-router.get('/getLanguageSpokenInCountry',DashboardController.getLanguageSpokenInCountry)
+router.get(
+  '/getLanguageSpokenInCountry/:country',
+  DashboardController.getLanguageSpokenInCountry
+)
 
 router.get('/getLanguageSpokenWorldWide',DashboardController.getLanguageSpokenWorldWide)
 
