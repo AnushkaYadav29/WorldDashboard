@@ -6,7 +6,8 @@ import {
   Pie,
   Cell,
   Tooltip,
-  Legend
+  Legend,
+  ResponsiveContainer
 } from "recharts";
 
 const COLORS = [
@@ -41,9 +42,10 @@ const PopulationByContinentChart = () => {
   return (
     <div className="chart-card">
 
-      <h2>🌍 Population By Continent</h2>
+      <h2> Population By Continent</h2>
 
-      <PieChart width={600} height={400}>
+      <ResponsiveContainer width="100%" height={300}>
+  <PieChart>
         <Pie
           data={data}
           dataKey="value"
@@ -64,6 +66,7 @@ const PopulationByContinentChart = () => {
         <Tooltip />
         <Legend />
       </PieChart>
+      </ResponsiveContainer>
 
     </div>
   );

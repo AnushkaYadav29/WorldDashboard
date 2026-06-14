@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { getSpecificCityinfo } from "../api/Api";
 
 const SpecificCityInfo = () => {
@@ -8,12 +6,22 @@ const SpecificCityInfo = () => {
   const [info, setInfo] = useState(null);
 
   const handleSearch = async () => {
+  console.log("button clicked");
+
+  try {
     const res = await getSpecificCityinfo(city);
+
+    console.log("API response:", res);
+
     setInfo(res);
-  };
+  } catch (error) {
+    console.log(error);
+  }
+};
 
   return (
-    <div className="dashboard-card">
+    <div className="analytics-card">
+
       <h2>City Information</h2>
 
       <input
@@ -25,19 +33,25 @@ const SpecificCityInfo = () => {
       <button onClick={handleSearch}>Search</button>
 
       {info && (
-        <>
-          <p>{info.name} ({info.country})</p>
+        <div className="city-info-card">
 
-          <ResponsiveContainer width="100%" height={200}>
-            <BarChart data={[info]}>
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="population" fill="#ff7300" />
-            </BarChart>
-          </ResponsiveContainer>
-        </>
+          <h3>{info.Name}</h3>
+
+          <p>
+            <strong>Country Code:</strong> {info.CountryCode}
+          </p>
+
+          <p>
+            <strong>District:</strong> {info.District}
+          </p>
+
+          <p>
+            <strong>Population:</strong> {info.Population.toLocaleString()}
+          </p>
+
+        </div>
       )}
+
     </div>
   );
 };

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { getTopLanguages } from "../api/Api";
+import { getTenMostSpokenLanguage } from "../api/Api";
 
 const TopTenLanguages = () => {
 
     const [languages,setLanguages] = useState([]);
 
     async function fetchData(){
-        const res = await getTopLanguages();
+        const res = await getTenMostSpokenLanguage();
         setLanguages(res);
     }
 
@@ -21,7 +21,7 @@ const TopTenLanguages = () => {
         {languages.map((lang, index) => (
             <div key={index} className="progress-item">
                 <div className="label">
-                    #{index + 1} {lang.Language}
+                    {index + 1} {lang.Language}
                 </div>
 
                 <div className="bar">

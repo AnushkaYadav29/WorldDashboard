@@ -56,7 +56,7 @@ export async function getTenLeastPopulatedCountries() {
 
 }
 
-export async function getTopLanguages(){
+export async function getTenMostSpokenLanguage(){
     const res = await axiosInstance.get('/getTenMostSpokenLanguage');
 
     if(res.data.success){
@@ -130,7 +130,7 @@ export async function getPopulationByCountries() {
     const res = await axiosInstance.get('/getPopulationByCountries');
 
     if (res.data.success) {
-        return res.data.countries;
+        return res.data.country;   
     }
 }
 
@@ -147,7 +147,7 @@ export async function getAveLifeExpectancyAllCountries() {
     const res = await axiosInstance.get('/getAveLifeExpectancyAllCountries');
 
     if (res.data.success) {
-        return res.data.averageLifeExpectancy;
+        return res.data.avgLifeExpectancy;
     }
 }
 
@@ -155,6 +155,6 @@ export async function getSpecificCityinfo(city) {
     const res = await axiosInstance.get(`/getSpecificCityinfo/${city}`);
 
     if (res.data.success) {
-        return res.data.city;
+        return res.data.cityInfo;
     }
 }

@@ -1,20 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
+import React, { useState } from "react";
 import { getLanguageSpokenInCountry } from "../api/Api";
-
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
 const LanguageInCountry = () => {
   const [country, setCountry] = useState("");
   const [data, setData] = useState([]);
 
   const handleSearch = async () => {
-    const res = await getLanguageSpokenInCountry(country);
-    setData(res);
+    try {
+      const res = await getLanguageSpokenInCountry(country);
+      console.log(res);
+      setData(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
-    <div className="dashboard-card">
+    <div className="analytics-card">
+
       <h2>Languages in Country</h2>
 
       <input
@@ -25,16 +28,23 @@ const LanguageInCountry = () => {
 
       <button onClick={handleSearch}>Search</button>
 
-      <ResponsiveContainer width="100%" height={250}>
-        <PieChart>
-          <Pie data={data} dataKey="value" nameKey="language" outerRadius={90} label>
-            {data.map((_, index) => (
-              <Cell key={index} fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-          <Tooltip />
-        </PieChart>
-      </ResponsiveContainer>
+      <div className="language-list">
+
+        {data.length === 0 ? (
+          <p>No data found</p>
+        ) : (
+          data.map((item, index) => (
+            <div className="language-item" key={index}>
+              <span>{item.Language}</span>
+
+              {/* if Percentage exists in DB */}
+              <span>{item.Percentage}%</span>
+            </div>
+          ))
+        )}
+
+      </div>
+
     </div>
   );
 };

@@ -21,7 +21,7 @@ const GDPCountries = () => {
 
             <table>
                 <thead>
-                    <tr>``
+                    <tr>
                         <th>Rank</th>
                         <th>Country</th>
                         <th>GDP</th>

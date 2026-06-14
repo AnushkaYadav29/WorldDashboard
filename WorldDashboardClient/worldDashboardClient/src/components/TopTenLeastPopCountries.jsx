@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getTenLeastPopulatedCountries, getTenPopulatedCountries } from '../api/Api';
+import { getTenLeastPopulatedCountries} from '../api/Api';
 
 const TopTenLeastPopCountries = () => {
 
@@ -17,7 +17,7 @@ const TopTenLeastPopCountries = () => {
     return (
     <div className="table-container">
 
-        <h2> Top 10 Populated Countries</h2>
+        <h2> Top 10 Least Populated Countries</h2>
 
         <div className="table-wrapper">
 

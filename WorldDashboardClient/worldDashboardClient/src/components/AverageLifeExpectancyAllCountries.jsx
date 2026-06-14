@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  CartesianGrid
+} from "recharts";
+
 import { getAveLifeExpectancyAllCountries } from "../api/Api";
 
 const AverageLifeExpectancyAllCountries = () => {
@@ -7,36 +16,59 @@ const AverageLifeExpectancyAllCountries = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await getAveLifeExpectancyAllCountries();
-      setValue(res);
+      try {
+        const res = await getAveLifeExpectancyAllCountries();
+
+        console.log(res);
+
+        setValue(Number(res));
+      } catch (error) {
+        console.log(error);
+      }
     };
+
     fetchData();
   }, []);
 
+  // data for bar chart
   const data = [
-    { name: "Life Expectancy", value: value },
-    { name: "Remaining", value: 100 - value },
+    {
+      name: "Average Life Expectancy",
+      years: value
+    }
   ];
 
   return (
-    <div className="dashboard-card">
-      <h2>Avg Life Expectancy</h2>
+    <div className="analytics-card">
 
-      <ResponsiveContainer width="100%" height={250}>
-        <PieChart>
-          <Pie
-            data={data}
-            dataKey="value"
-            innerRadius={60}
-            outerRadius={90}
-          >
-            <Cell fill="#4CAF50" />
-            <Cell fill="#eee" />
-          </Pie>
-        </PieChart>
-      </ResponsiveContainer>
+      <h2>Average Life Expectancy</h2>
 
-      <h1 style={{ textAlign: "center" }}>{value}</h1>
+      <div style={{ width: "100%", height: "350px" }}>
+
+        <ResponsiveContainer width="100%" height="100%">
+
+          <BarChart data={data}>
+
+            <CartesianGrid strokeDasharray="3 3" />
+
+            <XAxis dataKey="name" />
+
+            <YAxis />
+
+            <Tooltip />
+
+            <Bar dataKey="years" fill="#4CAF50" />
+
+          </BarChart>
+
+        </ResponsiveContainer>
+
+      </div>
+
+      <h3 style={{ textAlign: "center", marginTop: "10px" }}>
+        {value.toFixed(2)} Years
+      </h3>
+
     </div>
   );
 };

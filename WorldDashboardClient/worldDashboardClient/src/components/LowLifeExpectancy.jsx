@@ -18,6 +18,7 @@ const LowLifeExpectancy = () => {
         <div className="table-card">
             <h2>Low Life Expectancy</h2>
 
+            <div className="table-wrapper">
             <table>
                 <thead>
                     <tr>
@@ -37,6 +38,7 @@ const LowLifeExpectancy = () => {
                     ))}
                 </tbody>
             </table>
+            </div>
         </div>
     );
 };
